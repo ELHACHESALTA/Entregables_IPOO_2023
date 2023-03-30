@@ -12,25 +12,17 @@
         //Métodos
     
         /**
-         * Crea un objeto de la clase Viaje y va solicitando sus atributos para ingresarlos por teclado.
+         * Crea un objeto de la clase Viaje.
+         * @param string $codigoViaje
+         * @param string $destino
+         * @param string $cantMaxPasajeros
+         * @param array $arregloInfoPasajeros
          */
-        public function __construct() {
-            echo "\n" . "Carga de información del Viaje: \n" . 
-            "Ingrese el código del viaje: ";
-            $this -> codigoViaje = trim(fgets(STDIN));
-            echo "Ingrese el destino del viaje: ";
-            $this -> destino = trim(fgets(STDIN));
-            echo "Ingrese la cantidad de pasajeros: ";
-            $cantPasajeros = trim(fgets(STDIN));
-            $this -> cantMaxPasajeros = $cantPasajeros;
-            for ($i = 0; $i < $cantPasajeros; $i++) {
-                echo "Ingrese el nombre del pasajero N°" . ($i + 1) . ": ";
-                $this -> arregloInfoPasajeros[$i]["nombre"] = trim(fgets(STDIN));
-                echo "Ingrese el apellido del pasajero N°" . ($i + 1) . ": ";
-                $this -> arregloInfoPasajeros[$i]["apellido"] = trim(fgets(STDIN));
-                echo "Ingrese el DNI del pasajero N°" . ($i + 1) . ": ";
-                $this -> arregloInfoPasajeros[$i]["dni"] = trim(fgets(STDIN));
-            }
+        public function __construct($codigoViajeC, $destinoC, $cantMaxPasajerosC, $arregloInfoPasajerosC) {
+            $this -> codigoViaje = $codigoViajeC;
+            $this -> destino = $destinoC;
+            $this -> cantMaxPasajeros = $cantMaxPasajerosC;
+            $this -> arregloInfoPasajeros = $arregloInfoPasajerosC;
         }
 
         /**
@@ -82,7 +74,7 @@
         }
 
         /**
-         * Modifica la cantidad de pasajeros del viaje.
+         * Modifica la cantidad máxima de pasajeros del viaje.
          * @param string $cantMaxPasajerosNuevo
          */
         public function setCantMaxPasajeros($cantMaxPasajerosNuevo) {
@@ -90,8 +82,8 @@
         }
 
         /**
-         * Modifica la informacion de los pasajeros del viaje.
-         * @param string $arregloInfoPasajerosNuevo
+         * Modifica el arreglo con la informacion de todos los pasajeros del viaje.
+         * @param array $arregloInfoPasajerosNuevo
          */
         public function setArregloInfoPasajeros($arregloInfoPasajerosNuevo) {
             $this -> arregloInfoPasajeros = $arregloInfoPasajerosNuevo;
@@ -103,7 +95,7 @@
          */
         public function __toString() {
             $infoPasajeros = "";
-            for ($i = 0; $i < $this -> getCantMaxPasajeros(); $i++) {
+            for ($i = 0; $i < count($this -> getArregloInfoPasajeros()); $i++) {
                 $infoPasajeros = $infoPasajeros . 
                 "Pasajero N°" . ($i + 1) . ": " . $this -> getArregloInfoPasajeros()[$i]["nombre"] . 
                 " " . $this -> getArregloInfoPasajeros()[$i]["apellido"] . 
