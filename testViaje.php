@@ -63,47 +63,6 @@
         return $resultadoMMP;
     }
 
-    /**
-     * Función que solicita todos los valores necesarios y crear un objeto Viaje a partir de estos.
-     * @return object $viajeIV
-     */
-    function infoViaje() {
-        echo "\n" . "Carga de información del Viaje: \n" . 
-        "Ingrese el código del viaje: ";
-        $codigoViajeIV = trim(fgets(STDIN));
-        echo "Ingrese el destino del viaje: ";
-        $destinoIV = trim(fgets(STDIN));
-        echo "Ingrese la cantidad máxima de pasajeros del viaje: ";
-        $cantMaxPasajerosIV = trim(fgets(STDIN));
-        $contadorPasajerosIV = 1;
-        do {
-            echo "Ingrese el nombre del pasajero: ";
-            $arregloInfoPasajerosIV[$contadorPasajerosIV - 1]["nombre"] = trim(fgets(STDIN));
-            echo "Ingrese el apellido del pasajero: ";
-            $arregloInfoPasajerosIV[$contadorPasajerosIV - 1]["apellido"] = trim(fgets(STDIN));
-            echo "Ingrese el DNI del pasajero: ";
-            $arregloInfoPasajerosIV[$contadorPasajerosIV - 1]["dni"] = trim(fgets(STDIN));
-            if($contadorPasajerosIV < $cantMaxPasajerosIV) {
-                echo "¿Desea ingresar otro pasajero?: Seleccione una opción: \n" . 
-                "1) Si \n" . 
-                "2) No \n";
-                echo "Respuesta: ";
-                $respuestaIV = trim(fgets(STDIN));
-                if ($respuestaIV == "1") {
-                    $contadorPasajerosIV++;
-                } else {
-                    echo "\n" . "Se ha/n cargado " . $contadorPasajerosIV . " pasajero/s correctamente. \n";
-                }
-            } else {
-                echo "\n" . "Ha llegado a la cantidad máxima de pasajeros del viaje. \n";
-                $respuestaIV = "2";
-            }
-        } while ($respuestaIV == "1");
-        echo "\n" . "Su viaje a sido cargado correctamente. \n";
-        $viajeIV = new Viaje($codigoViajeIV, $destinoIV, $cantMaxPasajerosIV, $arregloInfoPasajerosIV);
-        return $viajeIV;
-    }
-
     $existeViaje = false;
     do {
         $opcion = menuPrincipal();
@@ -112,7 +71,39 @@
                 if ($existeViaje == true) {
                     echo "\n" . "Ya existe información cargada de un viaje, para modificarla dirijase a la opción 2. \n";
                 } else {
-                    $viaje = infoViaje();
+                    echo "\n" . "Carga de información del Viaje: \n" . 
+                    "Ingrese el código del viaje: ";
+                    $codigoViajeCarga = trim(fgets(STDIN));
+                    echo "Ingrese el destino del viaje: ";
+                    $destinoCarga = trim(fgets(STDIN));
+                    echo "Ingrese la cantidad máxima de pasajeros del viaje: ";
+                    $cantMaxPasajerosCarga = trim(fgets(STDIN));
+                    $contadorPasajeros = 1;
+                    do {
+                        echo "Ingrese el nombre del pasajero: ";
+                        $arregloInfoPasajerosCarga[$contadorPasajeros - 1]["nombre"] = trim(fgets(STDIN));
+                        echo "Ingrese el apellido del pasajero: ";
+                        $arregloInfoPasajerosCarga[$contadorPasajeros - 1]["apellido"] = trim(fgets(STDIN));
+                        echo "Ingrese el DNI del pasajero: ";
+                        $arregloInfoPasajerosCarga[$contadorPasajeros - 1]["dni"] = trim(fgets(STDIN));
+                        if($contadorPasajeros < $cantMaxPasajerosCarga) {
+                            echo "¿Desea ingresar otro pasajero?: Seleccione una opción: \n" . 
+                            "1) Si \n" . 
+                            "2) No \n";
+                            echo "Respuesta: ";
+                            $respuesta = trim(fgets(STDIN));
+                            if ($respuesta == "1") {
+                                $contadorPasajeros++;
+                            } else {
+                                echo "\n" . "Se ha/n cargado " . $contadorPasajerosIV . " pasajero/s correctamente. \n";
+                            }
+                        } else {
+                            echo "\n" . "Ha llegado a la cantidad máxima de pasajeros del viaje. \n";
+                            $respuesta = "2";
+                        }
+                    } while ($respuesta == "1");
+                    echo "\n" . "Su viaje a sido cargado correctamente. \n";
+                    $viaje = new Viaje($codigoViajeCarga, $destinoCarga, $cantMaxPasajerosCarga, $arregloInfoPasajerosCarga);
                     $existeViaje = true;
                 }
                 break;
@@ -199,8 +190,6 @@
                     } while ($opcion != 6);
                 } else {
                     echo "\n" . "Su viaje aún no tiene información cargada. \n";
-                    $viaje = infoViaje();
-                    $existeViaje = true;
                 }
                 break;
             case 3:
@@ -208,8 +197,6 @@
                     echo $viaje;
                 } else {
                     echo "\n" . "Su viaje aún no tiene información cargada. \n";
-                    $viaje = infoViaje();
-                    $existeViaje = true;
                 }
                 break;
             case 4:
