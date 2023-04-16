@@ -8,26 +8,29 @@
         private $destino;
         private $cantMaxPasajeros;
         private $arregloInfoPasajeros;
+        private $objResponsableV;
 
         //Métodos
     
         /**
          * Crea un objeto de la clase Viaje.
-         * @param string $codigoViaje
-         * @param string $destino
-         * @param string $cantMaxPasajeros
-         * @param array $arregloInfoPasajeros
+         * @param string $codigoViajeC
+         * @param string $destinoC
+         * @param string $cantMaxPasajerosC
+         * @param array $arregloInfoPasajerosC
+         * @param object $objResponsableVC
          */
-        public function __construct($codigoViajeC, $destinoC, $cantMaxPasajerosC, $arregloInfoPasajerosC) {
+        public function __construct($codigoViajeC, $destinoC, $cantMaxPasajerosC, $arregloInfoPasajerosC, $objResponsableVC) {
             $this -> codigoViaje = $codigoViajeC;
             $this -> destino = $destinoC;
             $this -> cantMaxPasajeros = $cantMaxPasajerosC;
             $this -> arregloInfoPasajeros = $arregloInfoPasajerosC;
+            $this -> objResponsableV = $objResponsableVC;
         }
 
         /**
          * Retorna el código del viaje.
-         * @return int
+         * @return string
          */
         public function getCodigoViaje() {
             return $this -> codigoViaje;
@@ -43,7 +46,7 @@
 
         /**
          * Retorna la cantidad máxima de pasajeros del viaje.
-         * @return int
+         * @return string
          */
         public function getCantMaxPasajeros() {
             return $this -> cantMaxPasajeros;
@@ -55,6 +58,14 @@
          */
         public function getArregloInfoPasajeros() {
             return $this -> arregloInfoPasajeros;
+        }
+
+        /**
+         * Retorna el objeto del responsable del viaje.
+         * @return object
+         */
+        public function getObjResponsableV() {
+            return $this -> objResponsableV;
         }
 
         /**
@@ -90,22 +101,33 @@
         }
 
         /**
-         * Retorna un string con toda la información del viaje.
+         * Modifica el objeto del responsable del viaje.
+         * @param object $objResponsableVNuevo
+         */
+        public function setObjResponsableV($objResponsableVNuevo) {
+            $this -> objResponsableV = $objResponsableVNuevo;
+        }
+
+        /**
+         * Retorna una cadena con toda la información del viaje.
          * @return string
          */
         public function __toString() {
             $infoPasajeros = "";
             for ($i = 0; $i < count($this -> getArregloInfoPasajeros()); $i++) {
                 $infoPasajeros = $infoPasajeros . 
-                "Pasajero N°" . ($i + 1) . ": " . $this -> getArregloInfoPasajeros()[$i]["nombre"] . 
-                " " . $this -> getArregloInfoPasajeros()[$i]["apellido"] . 
-                " con DNI " . $this -> getArregloInfoPasajeros()[$i]["dni"] . "\n";
+                " - Pasajero N°" . ($i + 1) . ": " . $this -> getArregloInfoPasajeros()[$i] -> getNombrePasajero() . 
+                " " . $this -> getArregloInfoPasajeros()[$i] -> getApellidoPasajero() . 
+                " con DNI " . $this -> getArregloInfoPasajeros()[$i] -> getDni() . 
+                " y telefono " . $this -> getArregloInfoPasajeros()[$i] -> getTelefono() . "\n";
             }
-            return "\n" . "Información del viaje: \n" . 
-            "Código del viaje: " . $this -> getCodigoViaje() . "\n" . 
-            "Destino del viaje: " . $this -> getDestino() . "\n" . 
-            "Cantidad de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" . 
-            $infoPasajeros;
+            $cadena = "\n" . "Información del viaje: \n" . 
+            " - Código del viaje: " . $this -> getCodigoViaje() . "\n" . 
+            " - Destino del viaje: " . $this -> getDestino() . "\n" . 
+            " - Cantidad de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" . 
+            $infoPasajeros . 
+            $this -> getObjResponsableV();
+            return $cadena;
         }
 
     }

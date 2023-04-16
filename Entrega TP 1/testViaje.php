@@ -1,5 +1,5 @@
 <?php
-    include_once ("viaje.php");
+    include_once ("Viaje.php");
 
     /**
      *  Corrobora que un número se encuentre entre un mínimo y un máximo.
@@ -95,7 +95,7 @@
                             if ($respuesta == "1") {
                                 $contadorPasajeros++;
                             } else {
-                                echo "\n" . "Se ha/n cargado " . $contadorPasajerosIV . " pasajero/s correctamente. \n";
+                                echo "\n" . "Se ha/n cargado " . $contadorPasajeros . " pasajero/s correctamente. \n";
                             }
                         } else {
                             echo "\n" . "Ha llegado a la cantidad máxima de pasajeros del viaje. \n";
